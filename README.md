@@ -8,3 +8,7 @@ https://dev.to/sebastienfilion/understanding-the-http-protocol-10kc
 
 RFC HTTP
 https://datatracker.ietf.org/doc/html/rfc2616
+
+-telnet
+-NGINX
+
