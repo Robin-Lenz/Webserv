@@ -2,8 +2,8 @@ NAME := Webserve
 CXX := c++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++98 -I .
 
-SRC_DIR := .
-OBJ_DIR := ./obj
+SRC_DIR := src
+OBJ_DIR := obj
 
 SRC_FILES := $(shell find src -type f -name '*.c' -o -name '*.cpp' -o -name '*.h')
 OBJ_FILES := $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(SRC_FILES:.cpp=.o))
