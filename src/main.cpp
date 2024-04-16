@@ -5,7 +5,7 @@ int main(){
 	struct sockaddr_in server_addr;
 	long valread;
 	(void)valread;
-	char hello[] = "Hello from server";
+	char hello[] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
 
 	/*init a socket*/
 	int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -44,9 +44,15 @@ int main(){
 		}
 
 		char buffer[30000] = {0};
-		valread = read(tmp_socket, buffer, 30000);
+		if ((valread = read(tmp_socket, buffer, 30000)) < 0){
+			std::cout << "read function failed" << '\n';
+			continue ;
+		}
+		Request Req(buffer, valread);
+		// create Response Object here 
+		// Response(Req)
 
-		std::cout << buffer << '\n';
+		std::cout << Req.getName();
 
 		write(tmp_socket, hello, std::strlen(hello));
 

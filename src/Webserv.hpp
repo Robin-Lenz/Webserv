@@ -8,6 +8,8 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+#include "Request.hpp"
+
 #define PORT 8080
 
 
