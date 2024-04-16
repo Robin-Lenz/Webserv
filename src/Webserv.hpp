@@ -6,8 +6,7 @@
 #include <sys/socket.h>
 #include <iostream>
 #include <netinet/in.h>
-
-// #include <stdlib.h>
+#include <unistd.h>
 
 #define PORT 8080
 

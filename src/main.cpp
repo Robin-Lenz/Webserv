@@ -3,6 +3,9 @@
 int main(){
 
 	struct sockaddr_in server_addr;
+	long valread;
+	(void)valread;
+	char hello[] = "Hello from server";
 
 	/*init a socket*/
 	int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -30,9 +33,26 @@ int main(){
 	}
 
 	int tmp_socket;
-	socklen_t *address_len = (socklen_t *)calloc(sizeof(socklen_t), 1);
-	if ((tmp_socket = accept(socket_fd, (struct sockaddr*)&server_addr, address_len)) < 0 ){
-		std::cout << "accept function failed" << '\n';
-		return (EXIT_FAILURE);
+	socklen_t *address_len = (socklen_t *)calloc(sizeof(socklen_t), 1);// are we allowed to use calloc ?
+	
+	while (1)
+	{
+		std::cout << "waiting to accept connection\n";
+		if ((tmp_socket = accept(socket_fd, (struct sockaddr*)&server_addr, address_len)) < 0 ){
+			std::cout << "accept function failed" << '\n';
+			return (EXIT_FAILURE);
+		}
+
+		char buffer[30000] = {0};
+		valread = read(tmp_socket, buffer, 30000);
+
+		std::cout << buffer << '\n';
+
+		write(tmp_socket, hello, std::strlen(hello));
+
+		std::cout << " message has been sent " << '\n';
+
+		close(tmp_socket);
 	}
+	return 0;
 }
