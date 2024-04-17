@@ -58,7 +58,7 @@ int main(){
 
 		// std::cout << Req.getName();
 
-		write(tmp_socket, Res.getResponse().c_str(), Res.getResLen());
+		write(tmp_socket, Res->getResponse().c_str(), Res->getResLen());
 
 		std::cout << " message has been sent " << '\n';
 

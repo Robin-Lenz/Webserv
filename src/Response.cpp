@@ -43,7 +43,7 @@ Response *Response::makeResponse(Request &req){
 
 	for (int i = 0; i < 1; i++){
 		if (args[i] == req.getMethod())
-			return (this->*methods[i](&req));
+			return ((this->*methods[i])(req));
 
 	}
 	
