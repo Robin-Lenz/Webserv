@@ -57,7 +57,7 @@ Response *Response::GET(Request &req){
 
 	/*check for client permission to access data here*/
 	
-	_Response = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\n";
+	_Response = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nhallo";
 	_ResLen = _Response.length();
 	std::cout << "GET called\n" << _Response << '\n';
 	return (this);

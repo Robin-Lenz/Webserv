@@ -51,12 +51,9 @@ int main(){
 			continue ;
 		}
 		Request Req(buffer, valread);
-		Response *Res;
-		Res->makeResponse(Req);
-		// create Response Object here 
-		// Response(Req)
 
-		// std::cout << Req.getName();
+		Response R;
+		Response *Res = R.makeResponse(Req);
 
 		write(tmp_socket, Res->getResponse().c_str(), Res->getResLen());
 

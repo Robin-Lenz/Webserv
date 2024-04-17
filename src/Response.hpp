@@ -24,6 +24,13 @@ class Response {
 		
 		Response *makeResponse(Request &req);
 		Response *GET(Request &req);
+
+		// /*one function per method token */
+		// GET — Fetch a URL
+    	// HEAD — Fetch information about a URL
+    	// PUT — Store to an URL
+    	// POST — Send form data to a URL and get a response back
+    	// DELETE — Delete a URL GET and POST (forms) are commonly used
 };
 
 #endif
