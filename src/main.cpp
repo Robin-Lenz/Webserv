@@ -1,11 +1,13 @@
 #include "Webserv.hpp"
+#include "Response.hpp"
+#include "Request.hpp"
 
 int main(){
 
 	struct sockaddr_in server_addr;
 	long valread;
 	(void)valread;
-	char hello[] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
+	// char hello[] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
 
 	/*init a socket*/
 	int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -49,12 +51,14 @@ int main(){
 			continue ;
 		}
 		Request Req(buffer, valread);
+		Response *Res;
+		Res->makeResponse(Req);
 		// create Response Object here 
 		// Response(Req)
 
-		std::cout << Req.getName();
+		// std::cout << Req.getName();
 
-		write(tmp_socket, hello, std::strlen(hello));
+		write(tmp_socket, Res.getResponse().c_str(), Res.getResLen());
 
 		std::cout << " message has been sent " << '\n';
 
