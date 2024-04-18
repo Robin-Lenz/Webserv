@@ -1,5 +1,6 @@
 #include "Request.hpp"
 #include "Webserv.hpp"
+#include "Response.hpp"
 
 Request::Request(){
 	
@@ -55,23 +56,21 @@ std::string Request::getMethod() const{
 	return (_RequestMethod);
 }
 
-// Response &Request::makeResponse(const Request &req){
-// 	Response *res = new Response();
+Response &Request::makeResponse(){
+	Response *res = new Response();
 
-// 	Response (*methods[])(const Request &req) = {
-// 		&Response::GET
-// 	};
+	Response *(Response::*methods[])() = {
+		&Response::GET
+	};
 
-// 	std::string args[1];
-// 	args[0] = "GET";
+	std::string args[1];
+	args[0] = "GET";
 
-// 	for (int i = 0; i < 1; i++){
-// 		if (args[i] == req._RequestMethod)
-// 			return (this->*methods[i](req));
+	for (int i = 0; i < 1; i++){
+		if (args[i] == this->getMethod())
+			return (*(res->*methods[i])());
+	}
 
-// 	}
-	
-	
-// 	/*default response here*/
-// 	return (*res);
-// }
+	/*default response here*/
+	return (*res);
+}

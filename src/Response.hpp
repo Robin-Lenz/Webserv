@@ -21,9 +21,8 @@ class Response {
 
 		std::string getResponse() const;
 		int getResLen()const;
-		
-		Response *makeResponse(Request &req);
-		Response *GET(Request &req);
+
+		Response *GET();
 
 		// /*one function per method token */
 		// GET — Fetch a URL

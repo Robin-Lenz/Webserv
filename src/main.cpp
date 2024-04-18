@@ -6,8 +6,6 @@ int main(){
 
 	struct sockaddr_in server_addr;
 	long valread;
-	(void)valread;
-	// char hello[] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
 
 	/*init a socket*/
 	int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -45,17 +43,16 @@ int main(){
 			return (EXIT_FAILURE);
 		}
 
-		char buffer[30000] = {0};
+		char buffer[30000] = {0};// should we keep this size or is there a reason why we should chose a specific size
 		if ((valread = read(tmp_socket, buffer, 30000)) < 0){
 			std::cout << "read function failed" << '\n';
 			continue ;
 		}
 		Request Req(buffer, valread);
 
-		Response R;
-		Response *Res = R.makeResponse(Req);
+		Response &Res = Req.makeResponse();
 
-		write(tmp_socket, Res->getResponse().c_str(), Res->getResLen());
+		write(tmp_socket, Res.getResponse().c_str(), Res.getResLen());
 
 		std::cout << " message has been sent " << '\n';
 

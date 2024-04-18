@@ -2,6 +2,9 @@
 # define REQUEST_HPP
 
 #include "Webserv.hpp"
+#include "Response.hpp"
+
+class Response;
 
 class Request {
 	
@@ -25,6 +28,8 @@ class Request {
 
 		std::string getName() const;
 		std::string getMethod() const;
+
+		Response &makeResponse();
 };
 
 #endif
