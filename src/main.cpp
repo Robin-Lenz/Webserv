@@ -1,11 +1,11 @@
 #include "Webserv.hpp"
+#include "Response.hpp"
+#include "Request.hpp"
 
 int main(){
 
 	struct sockaddr_in server_addr;
 	long valread;
-	(void)valread;
-	char hello[] = "Hello from server";
 
 	/*init a socket*/
 	int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -43,12 +43,16 @@ int main(){
 			return (EXIT_FAILURE);
 		}
 
-		char buffer[30000] = {0};
-		valread = read(tmp_socket, buffer, 30000);
+		char buffer[30000] = {0};// should we keep this size or is there a reason why we should chose a specific size
+		if ((valread = read(tmp_socket, buffer, 30000)) < 0){
+			std::cout << "read function failed" << '\n';
+			continue ;
+		}
+		Request Req(buffer, valread);
 
-		std::cout << buffer << '\n';
+		Response &Res = Req.makeResponse();
 
-		write(tmp_socket, hello, std::strlen(hello));
+		write(tmp_socket, Res.getResponse().c_str(), Res.getResLen());
 
 		std::cout << " message has been sent " << '\n';
 
