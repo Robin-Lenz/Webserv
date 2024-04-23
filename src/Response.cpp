@@ -15,7 +15,7 @@ Response::Response(){
 // };
 
 Response::~Response(){
-	
+	delete this;
 };
 
 // Response &Response::operator=(const Response &a){
@@ -35,7 +35,7 @@ Response *Response::GET(){
 
 	/*check for client permission to access data here*/
 
-	_Response = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nhallo";
+	_Response = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 8\n\nhallo";
 	_ResLen = _Response.length();
 	std::cout << "GET called\n" << _Response << '\n';
 	return (this);

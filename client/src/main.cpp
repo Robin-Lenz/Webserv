@@ -14,7 +14,7 @@ int main()
     int sock = 0; long valread;
 	(void)valread;
     struct sockaddr_in serv_addr;
-    char hello[] = "Hello from client";
+    char hello[] = "GET Hello from client";
     char buffer[1024] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -40,8 +40,15 @@ int main()
         return -1;
     }
     send(sock , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
-    valread = read( sock , buffer, 1024);
+    printf("GET Hello message sent\n");
+
+	usleep(100000);
+
+    send(sock , hello , strlen(hello) , 0 );
+    printf("Hello message sent2\n");
+
+    valread = recv( sock , buffer, 100, 0);
     printf("%s\n",buffer );
+    write(sock, "\n", 1);
     return 0;
 }
