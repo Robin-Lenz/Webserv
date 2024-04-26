@@ -1,0 +1,18 @@
+# Ignore .vscode directory
+.vscode/
+
+# Ignore .vscode settings files
+.vscode/*.json
+.vscode/*.code-workspace
+
+# Ignore .vscode workspace settings files
+.vscode/*.code-workspace
+
+# Ignore .vscode task files
+.vscode/tasks.json
+
+# Ignore .vscode launch configuration files
+.vscode/launch.json
+
+# Ignore .vscode extensions folder
+.vscode/extensions/
