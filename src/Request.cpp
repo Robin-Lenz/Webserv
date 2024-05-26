@@ -18,7 +18,7 @@ void Request::ParseRequest(){
 	
 	/*this splits up the first line of the request*/
 	/*and stores them in the Request class private attributes*/
-
+	std::cout << " here we go " << _RequestMsg;
 	size_t PosSpace = this->_RequestMsg.find(" ");
 	size_t PosTmp = 0;
 	std::string MSG = this->getName();

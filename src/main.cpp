@@ -80,8 +80,8 @@ int main(){
 
 	while (server_alive)
 	{
-		// std::cout << "waiting for poll()\n";
-		rc = poll(fds, nfds, 10000);
+		std::cout << "waiting for poll()\n";
+		rc = poll(fds, nfds, 0);
 		if (rc < 0){
 			std::cout << "poll() failed\n";
 			continue ;
@@ -106,7 +106,7 @@ int main(){
 				// std::cout << "listening socket is readable\n";
 
 				/*accept all pending connections and add to polll structure*/
-				while (tmp_socket != -1)
+				while (1)//tmp_socket != -1)
 				{
 					std::cout << " before accept "<< '\n';
 					if ((tmp_socket = accept(socket_fd, (struct sockaddr*)&server_addr, &address_len)) < 0 ){
@@ -150,7 +150,7 @@ int main(){
 						close_con = 1;
 						break;
 					}
-					// write(fds[i].fd, "\n", 2); // to flush
+					write(fds[i].fd, "\n", 2); // to flush
 
 					std::cout << " message has been sent " << '\n';
 					break;
@@ -162,25 +162,25 @@ int main(){
 					arr_reloaded = 1;
 				}
 				write(fds[i].fd, "\n", 2);
-			break;// this break is just for debug reasons
+			// break;// this break is just for debug reasons
 			}
 
-		/*close all fds that are -1*/
-		if (arr_reloaded)
-		{
-			arr_reloaded = 0;
-			for (int i = 0; i < nfds; i++){
-				if (fds[i].fd == -1){
-					std::cout << "fd to eliminate " << fds[i].fd << '\n';
-					for (int j = i; j < nfds; j++){
-						fds[j].fd = fds[j+1].fd;
+			/*close all fds that are -1*/
+			if (arr_reloaded)
+			{
+				arr_reloaded = 0;
+				for (int i = 0; i < nfds; i++){
+					if (fds[i].fd == -1){
+						std::cout << "fd to eliminate " << fds[i].fd << '\n';
+						for (int j = i; j < nfds - 1; j++){
+							fds[j].fd = fds[j+1].fd;
+						}
 					}
+					nfds--;
+					i--;
 				}
-				nfds--;
-				i--;
 			}
 		}
 	}
-}
 	return 0;
 }
